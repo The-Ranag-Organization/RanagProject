@@ -17,8 +17,8 @@ The pre-built executable is ready to use out of the box.
 
 To use Ranag, you need an internet connection to interact with Hugging Face. Please note that this will be modified in the future for Ranag to work locally. We are still in the early stages of development.
 
-Simply run the executable you downloaded/generated from your terminal:
-	### •	On Windows:
+Simply run the executable you downloaded/generated from your terminal.
+### •	On Windows:
 ```bash
 .\executableName
 ```
