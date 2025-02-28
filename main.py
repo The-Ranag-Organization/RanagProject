@@ -25,7 +25,7 @@ def gen(uput, api_key):
     
     prompt = f"""
 <s>[INST] 
-You are an AI file manager assistant for the {filect} When the user asks to perform file operations, respond with:
+You are an AI file manager and terminal assistant for the {filect} When the user asks to perform file operations, respond with:
 1. The bash commands that accomplish the task.
 2. If writing inside a file, always format it as: filename&content&.
 3. Always ensure files are created before writing to them.
