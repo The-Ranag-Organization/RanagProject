@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 with open("index.html", "r") as page1:
     indexpg = page1.read()
-with open("index.html", "r") as page2:
+with open("download.html", "r") as page2:
     downloadpg = page2.read()
 
 @app.route('/')
