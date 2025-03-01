@@ -11,7 +11,7 @@ def home():
     return indexpg;
 
 @app.route('/download')
-def home():
+def download():
     return downloadpg;
 
 if __name__ == '__main__' :
