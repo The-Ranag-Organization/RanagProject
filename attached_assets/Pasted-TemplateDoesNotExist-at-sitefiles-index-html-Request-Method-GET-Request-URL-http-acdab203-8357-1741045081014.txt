@@ -1,0 +1,56 @@
+TemplateDoesNotExist at /
+sitefiles/index.html
+Request Method:	GET
+Request URL:	http://acdab203-8357-4f4d-89d9-98927dbc9f03-00-hmxwtacr3q42.spock.replit.dev/
+Django Version:	4.2.12
+Exception Type:	TemplateDoesNotExist
+Exception Value:	
+sitefiles/index.html
+Exception Location:	/nix/store/a4jv5jy6hlz40lhgkk2zrxvy0nhclm64-python3.12-django-4.2.12/lib/python3.12/site-packages/django/template/loader.py, line 19, in get_template
+Raised during:	ranagapp.views.home
+Python Executable:	/home/runner/workspace/.pythonlibs/bin/python
+Python Version:	3.12.7
+Python Path:	
+['/home/runner/workspace/website/ranagproject',
+ '/nix/store/lc7qv2ldzrs1aq3hbyzmbgvn0h2w26pl-sitecustomize/lib/python/site-packages',
+ '/nix/store/z0gpy18cc2s8i3y31vhad6acqvcaw6c9-python3.12-pip-24.0/lib/python3.12/site-packages',
+ '/nix/store/a4jv5jy6hlz40lhgkk2zrxvy0nhclm64-python3.12-django-4.2.12/lib/python3.12/site-packages',
+ '/nix/store/826w3g8fap734r44gk7wrh35nyj5dhl2-python3.12-asgiref-3.7.2/lib/python3.12/site-packages',
+ '/nix/store/45607cmr24grrw1pia620m5k4fcx2zlw-python3.12-typing-extensions-4.11.0/lib/python3.12/site-packages',
+ '/nix/store/c7ycrgwv039nqglbif98yggx211sdbcl-python3-3.12.3/lib/python3.12/site-packages',
+ '/nix/store/8jkb41annl56bvyq6imjyx7vdiaxli7g-python3.12-sqlparse-0.5.0/lib/python3.12/site-packages',
+ '/nix/store/nb21sc3npfc8gvazwnrjxpvb5d48jysx-python3-3.12.7/lib/python312.zip',
+ '/nix/store/nb21sc3npfc8gvazwnrjxpvb5d48jysx-python3-3.12.7/lib/python3.12',
+ '/nix/store/nb21sc3npfc8gvazwnrjxpvb5d48jysx-python3-3.12.7/lib/python3.12/lib-dynload',
+ '/home/runner/workspace/.pythonlibs/lib/python3.12/site-packages',
+ '/home/runner/workspace/.pythonlibs/lib/python3.12/site-packages',
+ '/nix/store/h25lasfc88hing94ks429x393chr9jci-python3.12-setuptools-75.1.1/lib/python3.12/site-packages']
+Server time:	Mon, 03 Mar 2025 23:37:47 +0000
+Template-loader postmortem
+
+Django tried loading these templates, in this order:
+Using engine django:
+django.template.loaders.app_directories.Loader: /nix/store/a4jv5jy6hlz40lhgkk2zrxvy0nhclm64-python3.12-django-4.2.12/lib/python3.12/site-packages/django/contrib/admin/templates/sitefiles/index.html (Source does not exist)
+django.template.loaders.app_directories.Loader: /nix/store/a4jv5jy6hlz40lhgkk2zrxvy0nhclm64-python3.12-django-4.2.12/lib/python3.12/site-packages/django/contrib/auth/templates/sitefiles/index.html (Source does not exist)
+Traceback Switch to copy-and-paste view
+
+/nix/store/a4jv5jy6hlz40lhgkk2zrxvy0nhclm64-python3.12-django-4.2.12/lib/python3.12/site-packages/django/core/handlers/exception.py, line 55, in inner
+                response = get_response(request)
+                               ^^^^^^^^^^^^^^^^^^^^^ …
+Local vars
+/nix/store/a4jv5jy6hlz40lhgkk2zrxvy0nhclm64-python3.12-django-4.2.12/lib/python3.12/site-packages/django/core/handlers/base.py, line 197, in _get_response
+                response = wrapped_callback(request, *callback_args, **callback_kwargs)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ …
+Local vars
+/home/runner/workspace/website/ranagproject/ranagapp/views.py, line 4, in home
+    return render(request, 'sitefiles/index.html')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ …
+Local vars
+/nix/store/a4jv5jy6hlz40lhgkk2zrxvy0nhclm64-python3.12-django-4.2.12/lib/python3.12/site-packages/django/shortcuts.py, line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ …
+Local vars
+/nix/store/a4jv5jy6hlz40lhgkk2zrxvy0nhclm64-python3.12-django-4.2.12/lib/python3.12/site-packages/django/template/loader.py, line 61, in render_to_string
+        template = get_template(template_name, using=using)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ …
+Local vars
