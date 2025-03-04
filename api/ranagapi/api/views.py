@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 import json
 import os
 import requests
@@ -36,7 +37,7 @@ def gen(prompt):
         return f"Error: {response.status_code}"
 
 
-
+@csrf_exempt
 def process_prompt(request):
     if request.method == "POST":
         try:

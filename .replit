@@ -11,3 +11,11 @@ run = ["sh", "-c", "python website/ranagproject/manage.py runserver"]
 localPort = 8000
 externalPort = 80
 exposeLocalhost = true
+
+[[ports]]
+localPort = 8001
+externalPort = 3000
+
+[[ports]]
+localPort = 8002
+externalPort = 3001
