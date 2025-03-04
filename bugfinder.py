@@ -35,10 +35,9 @@ def gen(tofind):
     {tofind}
     [/INST]"""
     
-    headers = {"Authorization": prompt}
-    
-    response = requests.post(API_URL, headers=headers)
-    
+    data = {"prompt": prompt}
+
+    response = requests.post(API_URL, json=data)
     if response.status_code == 200:
         resp = response.json()
         resp = resp['generated']
