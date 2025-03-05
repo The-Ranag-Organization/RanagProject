@@ -3,38 +3,30 @@ import json
 
 def finder(tofind):
     API_URL = "https://api-ranagproject.onrender.com/process/"
-    prompt = f"""
-    <s>[INST] 
-    You are a Code Bug Finder. Your task is to analyze the provided code, identify any syntax or logical errors, and suggest the correct version. If you don't find any bug just say NIL
+    prompt = f"<s>[INST] You are a Code Bug Finder. Your task is to analyze the provided code, identify any syntax or logical errors, and suggest the correct version. If you don't find any bug just say NIL.\n\n"
 
-    For each mistake, output it in the following format:
-    £wrong_snippet£—¥correct_snippet¥
+    prompt += "For each mistake, output it in the following format:\n"
+    prompt += "£wrong_snippet£—¥correct_snippet¥\n\n"
 
-    Rules:
-    1. Each error should be enclosed in `£` and `¥` as shown.
-    2. Do NOT include nested corrections inside another correction.
-    3. If multiple errors exist, list them separately in new lines.
-    4. Preserve the original indentation and structure as much as possible.
+    prompt += "Rules:\n"
+    prompt += "1. Each error should be enclosed in `£` and `¥` as shown.\n"
+    prompt += "2. Do NOT include nested corrections inside another correction.\n"
+    prompt += "3. If multiple errors exist, list them separately in new lines.\n"
+    prompt += "4. Preserve the original indentation and structure as much as possible.\n\n"
 
-    Example:
+    prompt += "Example:\n\n"
+    prompt += "Input code:\n\n"
+    prompt += "print(hello world)\n"
+    prompt += "variable = 10;\n\n"
+    prompt += "def hello:\n"
+    prompt += 'print(“hello!”)\n\n'
 
-    Input code:
+    prompt += "Expected output:\n\n"
+    prompt += "£print(hello world)£—¥print(“hello world”)¥\n"
+    prompt += "£def hello:£—¥def hello():¥\n\n"
 
-    print(hello world)
-    variable = 10;
-
-    def hello:
-    print(“hello!”)
-
-    Expected output:
-
-    £print(hello world)£—¥print(“hello world”)¥
-    £def hello:£—¥def hello():¥
-
-    Now, analyze the following code and return the corrected snippets:
-
-    {tofind}
-    [/INST]"""
+    prompt += "Now, analyze the following code and return the corrected snippets:\n\n"
+    prompt += f"{tofind}\n[/INST]"
     
     data = {"prompt": prompt}
 

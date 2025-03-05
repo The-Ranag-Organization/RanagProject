@@ -20,7 +20,8 @@ with open(flpath, "r") as f:
     filect = f.read()
     
 def bfrequest(resp):
-    if resp.lower() == "{specific}":
+    resp = resp.strip()
+    if "specific" in resp:
         resp = resp.replace("{specific}", "").strip()
         tofindfile = resp.strip()
 
@@ -64,20 +65,24 @@ def gen(uput):
     specific = "{specific}"
     API_URL = "https://api-ranagproject.onrender.com/process/"
 
-    prompt_text = f"<s>[INST] You are an AI file manager and terminal assistant for the {filect}.\n\n"
-    prompt_text += f"IMPORTANT: If the user asks to check, find, or analyze bugs in a file, ONLY respond with exactly '{specific} filename'. Example: '{specific} main.py'. Do not include any other text, commands, or explanations.\n\n"
-    prompt_text += "For ALL OTHER requests (file operations that are NOT related to finding bugs), respond with:\n"
-    prompt_text += "1. The bash commands that accomplish the task.\n"
-    prompt_text += "2. If writing inside a file, always format it as: filename&content&.\n"
-    prompt_text += "3. Always ensure files are created before writing to them.\n"
-    prompt_text += "4. A short message describing what was done.\n\n"
-    prompt_text += "Format your response exactly like this:\n"
-    prompt_text += "$command1$\n"
-    prompt_text += "$command2$\n"
-    prompt_text += "$command3$\n"
-    prompt_text += "Short description message\n\n"
+    if any(word in uput.lower() for word in ["bug", "check", "find", "fix", "search"]):
+        prompt_text = f"<s>[INST] You are an AI file manager and terminal assistant for the {filect}.\n\n"
+        prompt_text += f"IMPORTANT: If the user asks to check, find, or analyze bugs in a file, ONLY respond with exactly {specific} filename. Example: {specific} main.py . Do not include any other text, commands, or explanations.\n\n"
+    else:
+        prompt_text = f"<s>[INST] You are an AI file manager and terminal assistant for the {filect}.\n\n"
+        prompt_text += "For ALL OTHER requests (file operations that are NOT related to finding bugs), respond with:\n"
+        prompt_text += "1. The bash commands that accomplish the task.\n"
+        prompt_text += "2. If writing inside a file, always format it as: filename&content&.\n"
+        prompt_text += "3. Always ensure files are created before writing to them.\n"
+        prompt_text += "4. A short message describing what was done.\n\n"
+        prompt_text += "Format your response exactly like this:\n"
+        prompt_text += "$command1$\n"
+        prompt_text += "$command2$\n"
+        prompt_text += "$command3$\n"
+        prompt_text += "Short description message\n\n"
+
     prompt_text += f"The user's request is: {uput} [/INST]</s>"
-    
+
     data = {
         "prompt": prompt_text
     }
@@ -91,12 +96,13 @@ def gen(uput):
 
         if response.status_code == 200:
             resp = response.json()
-            return str(resp.get('generated', "Error: 'generated' key not found in response"))
+            parsed = str(resp.get('generated', "Error: 'generated' key not found in response"))
+            parsed = parsed.replace("</s>", "")
+            return parsed
         else:
             return f"Error: {response.status_code}\n{response.text}"
     except requests.exceptions.RequestException as e:
         return f"Request Error: {str(e)}"
-
 
 def rparse(resp):
     parts = resp.split('$')
@@ -139,7 +145,7 @@ def manage():
             if cmds or write_files(uput):
                 ok = rcmds(cmds, uput)
                 if ok:
-                    print(message)
+                    print(resp)
                 else:
                     print("There was a failure performing an action.")
             else:
