@@ -2,6 +2,10 @@
 
 ![Image](image.png)
 
+## What is Ranag
+Ranag is an completely open source terminal assistant and file manager that help you debug and manage your code easily, it was created by me, Wormfryes and is being mantained by me, feel free to join the contribuitors team and help me with this monumental project.
+
+
 ## How to Install
 
 You can install Ranag via Releases by clicking [Here](https://github.com/Wormfryes/RanagProject/releases/),  
