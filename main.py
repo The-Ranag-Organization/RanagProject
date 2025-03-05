@@ -3,7 +3,7 @@ import requests
 import base64
 from bugfinder import finder
 import re
-
+import json
 
 fpath = os.path.expanduser("~/RanagData")
 flpath = os.path.join(fpath, "os.txt")
@@ -149,7 +149,7 @@ def manage():
             else:
                 bfrequest(resp)
         except Exception as e:
-            print("Error!")
+            print(f"Error: {e}")
 
 if __name__ == "__main__":
     manage()
