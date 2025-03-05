@@ -128,7 +128,7 @@ def rcmds(cmds, uput):
     return True
 
 def manage():
-    print("——————————————\nRanag File Manager\nV 1.3.8\n–––––––———————\nAdded: Bug Finder 0.3.2\nModified: Migrated api to the oficial site.\nRemoved: nil\n——————————————\nSay ‘exit’ to quit or press CTRL + C")
+    print("——————————————\nRanag Assistant & File Manager\nV 1.7.1\n–––––––———————\nAdded: Bug Finder BETA 0.5.6\nModified: A few changes in the API\nRemoved: nil\n——————————————\nSay ‘exit’ to quit or press CTRL + C")
 
     
     while True:
