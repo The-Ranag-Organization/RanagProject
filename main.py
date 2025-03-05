@@ -83,21 +83,22 @@ The user's request is: {uput}
     data = {"prompt": prompt}
 
     headers = {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-    }
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
 
     try:
-        response = requests.post(API_URL, json=data, headers=headers)
-        
-        if response.status_code == 200:
-            resp = response.json()
-            resp = resp['generated']
-            return str(resp)
-        else:
-            return f"Error: {response.status_code}\n{response.text}"
+            response = requests.post(API_URL, json=data, headers=headers)
+
+            if response.status_code == 200:
+                resp = response.json()
+                resp = resp['generated']
+                return str(resp)
+            else:
+                return f"Error: {response.status_code}\n{response.text}"
     except requests.exceptions.RequestException as e:
-        return f"Request Error: {str(e)}"
+            return f"Request Error: {str(e)}"
+
 
 
 
