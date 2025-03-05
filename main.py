@@ -4,6 +4,16 @@ import base64
 from bugfinder import finder
 import re
 import json
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-pf", help="Filename to read")
+args = parser.parse_args()
+
+pfname = None
+if args.pf:
+    with open(args.pf, "r", encoding="utf-8") as file:
+      pfname = file.read().strip()
 
 fpath = os.path.expanduser("~/RanagData")
 flpath = os.path.join(fpath, "os.txt")
@@ -62,6 +72,8 @@ def bfrequest(resp):
 
 
 def gen(uput):
+    if pfname:
+        uput = pfname
     specific = "{specific}"
     API_URL = "https://api-ranagproject.onrender.com/process/"
 
@@ -146,10 +158,14 @@ def manage():
                 ok = rcmds(cmds, uput)
                 if ok:
                     print(resp)
+                    if pfname:
+                        break
                 else:
                     print("There was a failure performing an action.")
             else:
                 bfrequest(resp)
+                if pfname:
+                    break
         except Exception as e:
             print(f"Error: {e}")
 
