@@ -12,7 +12,7 @@ def gen(prompt):
     prompt = prompt
 
     params = {
-        "max_new_tokens": 256,
+        "max_new_tokens": 256,"
         "temperature": 0.3,
         "top_p": 0.9,
         "do_sample": False
