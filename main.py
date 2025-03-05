@@ -61,23 +61,24 @@ def bfrequest(resp):
 
 
 def gen(uput):
-    API_URL = "https://api-ranagproject.onrender.com/process"
+    API_URL = "https://api-ranagproject.onrender.com/process/"
 
-    data1 = {
-        "prompt": "<s>[INST] You are an AI file manager and terminal assistant for the " + filect + ". "
-                  "When the user asks to perform file operations, respond with:\n"
-                  "1. The bash commands that accomplish the task.\n"
-                  "2. If writing inside a file, always format it as: filename&content&.\n"
-                  "3. Always ensure files are created before writing to them.\n"
-                  "4. A short message describing what was done.\n\n"
-                  "Format your response exactly like this:\n"
-                  "$command1$\n"
-                  "$command2$\n"
-                  "$command3$\n"
-                  "Short description message\n\n"
-                  "The user's request is: " + uput + " [/INST]</s>"
+    prompt_text = f"<s>[INST] You are an AI file manager and terminal assistant for the {filect}. "
+    prompt_text += "When the user asks to perform file operations, respond with:\n"
+    prompt_text += "1. The bash commands that accomplish the task.\n"
+    prompt_text += "2. If writing inside a file, always format it as: filename&content&.\n"
+    prompt_text += "3. Always ensure files are created before writing to them.\n"
+    prompt_text += "4. A short message describing what was done.\n\n"
+    prompt_text += "Format your response exactly like this:\n"
+    prompt_text += "$command1$\n"
+    prompt_text += "$command2$\n"
+    prompt_text += "$command3$\n"
+    prompt_text += "Short description message\n\n"
+    prompt_text += f"The user's request is: {uput} [/INST]</s>"
+    
+    data = {
+        "prompt": prompt_text
     }
-    data = data1
     headers = {
         "Content-Type": "application/json",
         "Accept": "application/json"

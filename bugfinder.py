@@ -2,7 +2,7 @@ import requests
 import json
 
 def finder(tofind):
-    API_URL = "https://api-ranagproject.onrender.com/process"
+    API_URL = "https://api-ranagproject.onrender.com/process/"
     prompt = f"""
     <s>[INST] 
     You are a Code Bug Finder. Your task is to analyze the provided code, identify any syntax or logical errors, and suggest the correct version. If you don't find any bug just say NIL
