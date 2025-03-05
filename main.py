@@ -1,6 +1,7 @@
 import os
 import requests
 import base64
+from bugfinder import finder
 import re
 
 
@@ -18,10 +19,48 @@ if not os.path.exists(flpath):
 with open(flpath, "r") as f:
     filect = f.read()
     
+def bfrequest(resp):
+    if resp.lower() == "{specific}":
+        resp = resp.replace("{specific}", "").strip()
+        tofindfile = resp.strip()
 
-def gen(uput, api_key):
-    API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
-    headers = {"Authorization": f"Bearer {api_key}"}
+        try:
+            with open(tofindfile, "r") as content:
+                contentf = content.read()
+                bugs = finder(contentf)
+
+                if bugs == "NIL":
+                    return "No Bugs Were Found"
+                else:
+                    matches = re.findall(r"£(.*?)£", bugs)
+                    corrects = re.findall(r"¥(.*?)¥", bugs)
+
+                    for match, correct in zip(matches, corrects):
+                        print(f"Bug found in: {match}")
+                        print(f"It should be in this way: {correct}")
+                        print("---------------------")
+
+                    fix = input("Would you like to fix these bugs? (y/n): ")
+                    if fix.lower() == "y":
+                        with open(tofindfile, "r") as fixer:
+                            content = fixer.read()
+
+                        for match, correct in zip(matches, corrects):
+                            content = content.replace(match, correct)
+
+                        with open(tofindfile, "w") as fixer:
+                            fixer.write(content)
+
+                        print(f"All the bugs found on {tofindfile} have been fixed.")
+
+        except FileNotFoundError:
+            print(f"Error: The file '{tofindfile}' was not found.")
+
+    else:
+        print(f"{resp}")
+        
+def gen(uput):
+    API_URL = "https://api-ranagproject.onrender.com/process"
     
     prompt = f"""
 <s>[INST] 
@@ -39,31 +78,21 @@ Short description message
 
 The user's request is: {uput} 
 [/INST]"""
+
     
-    params = {
-        "max_new_tokens": 256,
-        "temperature": 0.7,
-        "top_p": 0.95,
-        "do_sample": True
-    }
-    
-    pload = {
-        "inputs": prompt,
-        "parameters": params
-    }
-    
-    response = requests.post(API_URL, headers=headers, json=pload)
+    data = {"prompt": prompt}
+
+    response = requests.post(API_URL, json=data)
+
     
     if response.status_code == 200:
-        resp = response.json()
-        if isinstance(resp, list) and len(resp) > 0:
-            generated = resp[0].get('generated_text', '')
-            if generated.startswith(prompt):
-                return generated[generated.find("[/INST]") + 7:].strip()
-            return generated
-        return str(resp)
+            resp = response.json()
+            resp = resp['generated']
+            return str(resp)
     else:
-        return f"Error: {response.status_code}"
+            return f"Error: {response.status_code}"
+
+
 
 def rparse(resp):
     parts = resp.split('$')
@@ -89,14 +118,8 @@ def rcmds(cmds, uput):
     return True
 
 def manage():
-    print("——————————————\nRanag File Manager\nV 1.1.4\n–––––––———————\nAdded: Writing inside files support, added support to compiling and running apps, added support to execute all installed global executables.\nModified: nil\nRemoved: nil\n——————————————\nSay ‘exit’ to quit or press CTRL + C")
+    print("——————————————\nRanag File Manager\nV 1.3.8\n–––––––———————\nAdded: Bug Finder 0.3.2\nModified: Migrated api to the oficial site.\nRemoved: nil\n——————————————\nSay ‘exit’ to quit or press CTRL + C")
 
-    with open("APIKEY.txt", "r") as ap:
-      api_key = ap.read()
-    
-    if not api_key:
-        print("API key missing")
-        return
     
     while True:
         uput = input(">")
@@ -106,7 +129,7 @@ def manage():
             break
         
         try:
-            resp = gen(uput, api_key)
+            resp = gen(uput)
             cmds, message = rparse(resp)
             
             if cmds or write_files(uput):
@@ -116,7 +139,7 @@ def manage():
                 else:
                     print("There was a failure performing an action.")
             else:
-                print(f"{resp}")
+                bfrequest(resp)
         except Exception as e:
             print("Error!")
 
