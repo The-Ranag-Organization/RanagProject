@@ -63,7 +63,7 @@ def bfrequest(resp):
 def gen(uput):
     API_URL = "https://api-ranagproject.onrender.com/process"
 
-    data = {
+    data1 = {
         "prompt": "<s>[INST] You are an AI file manager and terminal assistant for the " + filect + ". "
                   "When the user asks to perform file operations, respond with:\n"
                   "1. The bash commands that accomplish the task.\n"
@@ -77,7 +77,7 @@ def gen(uput):
                   "Short description message\n\n"
                   "The user's request is: " + uput + " [/INST]</s>"
     }
-
+    data = data1
     headers = {
         "Content-Type": "application/json",
         "Accept": "application/json"
