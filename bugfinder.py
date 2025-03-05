@@ -37,7 +37,9 @@ def finder(tofind):
     
     data = {"prompt": prompt}
 
-    response = requests.post(API_URL, json=data)
+    headers = {"Content-Type": "application/json"}
+
+    response = requests.post(API_URL, json=data, headers=headers)
     if response.status_code == 200:
         resp = response.json()
         resp = resp['generated']
