@@ -43,7 +43,8 @@ def finder(tofind):
     response = requests.post(API_URL, data=json.dumps(data), headers=headers)
     if response.status_code == 200:
         resp = response.json()
-        resp = resp['generated']
+        if 'generated' in resp:
+            resp = resp['generated']
         return str(resp)
     else:
         return f"Error: {response.status_code}"

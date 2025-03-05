@@ -92,7 +92,8 @@ The user's request is: {uput}
 
             if response.status_code == 200:
                 resp = response.json()
-                resp = resp['generated']
+                if 'generated' in resp:
+                    resp = resp['generated']
                 return str(resp)
             else:
                 return f"Error: {response.status_code}\n{response.text}"
