@@ -64,8 +64,9 @@ def gen(uput):
     specific = "{specific}"
     API_URL = "https://api-ranagproject.onrender.com/process/"
 
-    prompt_text = f"<s>[INST] You are an AI file manager and terminal assistant for the {filect}, if the user asks for checking bugs in a specific file, you will say EXACTLY {specific} file name. Example: {specific} main.py"
-    prompt_text += "When the user asks to perform file operations that are NOT finding bugs, respond with:\n"
+    prompt_text = f"<s>[INST] You are an AI file manager and terminal assistant for the {filect}.\n\n"
+    prompt_text += f"IMPORTANT: If the user asks to check, find, or analyze bugs in a file, ONLY respond with exactly '{specific} filename'. Example: '{specific} main.py'. Do not include any other text, commands, or explanations.\n\n"
+    prompt_text += "For ALL OTHER requests (file operations that are NOT related to finding bugs), respond with:\n"
     prompt_text += "1. The bash commands that accomplish the task.\n"
     prompt_text += "2. If writing inside a file, always format it as: filename&content&.\n"
     prompt_text += "3. Always ensure files are created before writing to them.\n"
